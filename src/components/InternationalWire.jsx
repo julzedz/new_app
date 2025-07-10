@@ -67,6 +67,7 @@ const InternationalWire = () => {
   const [bankName, setBankName] = useState('');
   const [transferType, setTransferType] = useState('International Wire');
   const [description, setDescription] = useState('');
+  const [swiftCode, setSwiftCode] = useState('');
   const [pin, setPin] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -103,7 +104,14 @@ const InternationalWire = () => {
 
   const handlePreview = (e) => {
     e.preventDefault();
-    if (!amount || !accountName || !accountNumber || !bankName || !pin) {
+    if (
+      !amount ||
+      !accountName ||
+      !accountNumber ||
+      !bankName ||
+      // !swiftCode ||
+      !pin
+    ) {
       toast({
         title: 'Please fill all required fields',
         status: 'warning',
@@ -366,6 +374,14 @@ const InternationalWire = () => {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </FormControl>
+                <FormControl mb={3}>
+                  <FormLabel fontSize="sm">SWIFT Code</FormLabel>
+                  <Input
+                    placeholder="Enter SWIFT/BIC Code"
+                    value={swiftCode}
+                    onChange={(e) => setSwiftCode(e.target.value)}
+                  />
+                </FormControl>
                 <FormControl mb={1}>
                   <FormLabel fontSize="sm">Transaction PIN</FormLabel>
                   <InputGroup>
@@ -488,6 +504,10 @@ const InternationalWire = () => {
                     <Flex justify="space-between">
                       <Text color="gray.500">Bank</Text>
                       <Text>{bankName}</Text>
+                    </Flex>
+                    <Flex justify="space-between">
+                      <Text color="gray.500">SWIFT Code</Text>
+                      <Text>{swiftCode}</Text>
                     </Flex>
                     <Flex justify="space-between">
                       <Text color="gray.500">Type</Text>
